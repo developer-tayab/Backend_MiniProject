@@ -29,21 +29,49 @@ app.post("/create", async (req, res) => {
       const userCreate = await userSchema.create({ username, name, email, password: hash, age });
       const token = jwt.sign({ email }, "shaaa");
       res.cookie("token", token);
-      console.log(userCreate);
-      res.send("User created successfully");
+      console.log(userCreate, "User created successfully");
+      res.redirect("/login")
     })
   })
 })
 
+app.get("/login", (req, res) => {
+  res.render("login")
+})
 
-app.get("/post" , async (req , res)=>{
- await postSchema.create({content : "This is a post"})
- res.send("Post created successfully")
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body
+  console.log(req.body)
+  const userFind = await userSchema.findOne({ email })
+  if (!userFind) return console.log("User not found")
+  bcrypt.compare(password, userFind.password, (error, result) => {
+    if (!result) return console.log("Password is Wrong .");
+    const token = jwt.sign({ email }, "shaaa");
+    res.cookie("token", token);
+    console.log("Login is done.")
+    res.render("welcome", { userFind })
+  })
+
+
 })
 
 
+function private(req, res, next) {
+  if (req.cookies.token == "") res.send("Login first please!");
+  else {
+    const data = jwt.verify(req.cookies.token, "shaaa");
+    console.log(data);
+    req.user = data
+    next()
+  }
 
+}
 
+app.get("/profile", private, (req, res) => {
+  res.send("This is profile Page .");
+  console.log(req.user)
+
+})
 
 
 
@@ -52,7 +80,7 @@ app.get("/post" , async (req , res)=>{
 
 
 app.get("/logout", (req, res) => {
-  res.clearCookie()
+  res.cookie("token", "")
   console.log("Logout is done.")
   res.redirect("/")
 })
