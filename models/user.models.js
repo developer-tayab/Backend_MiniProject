@@ -10,7 +10,12 @@ const userSchema = Schema({
   email: String,
   password: String,
   age: Number,
-  post: Array
+  post: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Post"
+    }
+  ]
 
 }, {
   timestamps: true
