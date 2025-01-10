@@ -4,6 +4,7 @@ const app = express();
 const path = require("path");
 const bcrypt = require("bcrypt");
 const userSchema = require("./models/user.models")
+const postSchema = require("./models/post.models")
 const jwt = require("jsonwebtoken");
 
 app.use(express.json());
@@ -35,6 +36,10 @@ app.post("/create", async (req, res) => {
 })
 
 
+app.get("/post" , async (req , res)=>{
+ await postSchema.create({content : "This is a post"})
+ res.send("Post created successfully")
+})
 
 
 
