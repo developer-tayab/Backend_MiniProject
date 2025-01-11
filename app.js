@@ -43,13 +43,14 @@ app.post("/login", async (req, res) => {
   const { email, password } = req.body
   console.log(req.body)
   const userFind = await userSchema.findOne({ email })
-  if (!userFind) return console.log("User not found")
+  if (!userFind) return res.redirect("/login")
   bcrypt.compare(password, userFind.password, (error, result) => {
-    if (!result) return console.log("Password is Wrong .");
+    if (!result) return res.redirect("/login")
     const token = jwt.sign({ email }, "shaaa");
+    res.status(200)
     res.cookie("token", token);
+    res.redirect("/profile")
     console.log("Login is done.")
-    res.render("welcome", { userFind })
   })
 
 
@@ -57,7 +58,7 @@ app.post("/login", async (req, res) => {
 
 
 function private(req, res, next) {
-  if (req.cookies.token == "") res.send("Login first please!");
+  if (req.cookies.token == "") res.redirect("/login");
   else {
     const data = jwt.verify(req.cookies.token, "shaaa");
     console.log(data);
@@ -68,8 +69,8 @@ function private(req, res, next) {
 }
 
 app.get("/profile", private, (req, res) => {
-  res.send("This is profile Page .");
-  console.log(req.user)
+  res.render("profile")
+
 
 })
 
