@@ -10,7 +10,7 @@ const userSchema = Schema({
   email: String,
   password: String,
   age: Number,
-  post: [
+  posts: [
     {
       type: Schema.Types.ObjectId,
       ref: "Post"

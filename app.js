@@ -68,8 +68,11 @@ function private(req, res, next) {
 
 }
 
-app.get("/profile", private, (req, res) => {
-  res.render("profile")
+app.get("/profile", private, async (req, res) => {
+  const { email } = req.user
+  const userFind = await userSchema.findOne({ email })
+  console.log(userFind)
+  res.render("profile", { userFind })
 
 
 })
