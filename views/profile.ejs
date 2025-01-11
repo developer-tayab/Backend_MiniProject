@@ -8,7 +8,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gradient-to-b from-gray-100 to-gray-300 min-h-screen flex flex-col p-3 ">
+<body class="bg-gradient-to-b from-gray-100 to-gray-300 min-h-screen flex flex-col p-3">
   <!-- Navbar -->
   <nav class="w-full bg-white shadow-lg py-4 px-8 rounded-b-3xl flex justify-between items-center sticky top-0 z-10">
     <h1 class="text-3xl font-bold text-gray-800">MySocialApp</h1>
@@ -32,13 +32,16 @@
         <p class="text-gray-600 text-lg">Share your thoughts and connect with others!</p>
       </div>
 
-      <!-- Post Form -->
+      <!-- Post Form Section -->
       <div class="col-span-2 bg-white shadow-xl rounded-2xl p-8">
         <h3 class="text-3xl font-semibold text-gray-800 mb-6">Create a New Post</h3>
         <form action="/createPost" method="POST" class="space-y-6">
-          <textarea name="content" rows="6" placeholder="What's on your mind?"
-            class="w-full border border-gray-300 rounded-lg p-4 text-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none resize-none shadow-md"
-            required></textarea>
+          <div class="relative">
+            <textarea name="content" rows="6" placeholder="What's on your mind?"
+              class="w-full border border-gray-300 rounded-lg p-4 text-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none resize-none shadow-md transition duration-300"
+              required></textarea>
+            <label for="content" class="absolute top-0 left-3 text-gray-500 text-sm">Post Content</label>
+          </div>
           <button type="submit" aria-label="Submit Post Button"
             class="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105">
             Submit Post
@@ -61,6 +64,14 @@
                 <button type="submit" aria-label="Like Button"
                   class="flex items-center bg-green-500 hover:bg-green-600 text-white py-2 px-5 rounded-full transition duration-300">
                   👍 Like
+                </button>
+              </form>
+            </div>
+            <div class="flex justify-between items-center mt-4">
+              <form action="" method="">
+                <button type="submit" aria-label="Edit Button"
+                  class="flex items-center bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-5 rounded-full transition duration-300">
+                  Edit
                 </button>
               </form>
             </div>
