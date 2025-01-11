@@ -19,7 +19,7 @@ app.set("view engine", "ejs");
 
 // Home route
 app.get("/", (req, res) => {
-  res.render("home"); // Renders home page
+  res.render("home");// Renders home page
 });
 
 // Create a new user (sign-up)
@@ -137,6 +137,22 @@ app.post("/updatePost/:id", private, async (req, res) => {
   // Redirect to profile page
   res.redirect("/profile");
 })
+
+app.get("/like/:id", private, async (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+  const postFind = await postSchema.findById(id);
+  if(postFind.likes.indexOf(req.user.user) == -1){
+    postFind.likes.push(req.user.user);
+    await postFind.save();
+    res.redirect("/profile");
+  }else{
+    postFind.likes.splice(postFind.likes.indexOf(req.user.user), 1);
+    await postFind.save();
+    res.redirect("/profile");
+  }
+
+});
 
 // Starting the server
 app.listen(3000, () => {
