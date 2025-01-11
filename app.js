@@ -142,17 +142,18 @@ app.get("/like/:id", private, async (req, res) => {
   const { id } = req.params;
   console.log(id);
   const postFind = await postSchema.findById(id);
-  if(postFind.likes.indexOf(req.user.user) == -1){
+  if (postFind.likes.indexOf(req.user.user) == -1) {
     postFind.likes.push(req.user.user);
     await postFind.save();
     res.redirect("/profile");
-  }else{
+  } else {
     postFind.likes.splice(postFind.likes.indexOf(req.user.user), 1);
     await postFind.save();
     res.redirect("/profile");
   }
 
 });
+
 
 // Starting the server
 app.listen(3000, () => {
