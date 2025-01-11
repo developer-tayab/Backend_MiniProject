@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Post</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-b from-gray-100 to-gray-300 min-h-screen flex flex-col p-3">
+  <!-- Navbar -->
+  <nav class="w-full bg-white shadow-lg py-4 px-8 rounded-b-3xl flex justify-between items-center sticky top-0 z-10">
+    <h1 class="text-3xl font-bold text-gray-800">MySocialApp</h1>
+    <form action="/logout" method="get">
+      <button type="submit" aria-label="Logout Button"
+        class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-6 rounded-full transition duration-300">
+        Logout
+      </button>
+    </form>
+  </nav>
+
+  <main class="flex-grow flex flex-col items-center justify-center py-12">
+    <div class="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-3 gap-10 px-4">
+      <!-- Profile Section -->
+      <div class="col-span-1 bg-white shadow-xl rounded-2xl p-8 text-center space-y-4">
+        <h2 class="text-4xl font-bold text-gray-800">
+          Edit Post
+        </h2>
+        <p class="text-gray-600 text-lg">Update your post content below!</p>
+      </div>
+
+      <!-- Edit Post Form Section -->
+      <div class="col-span-2 bg-white shadow-xl rounded-2xl p-8">
+        <h3 class="text-3xl font-semibold text-gray-800 mb-6">Edit Your Post</h3>
+        <form action="/updatePost/<%=postFind._id%>  " method="POST" class="space-y-6">
+          <!-- Post Content Field -->
+          <div class="relative">
+            <textarea name="content" rows="6" placeholder="Edit your post here"
+              class="w-full border border-gray-300 rounded-lg p-4 text-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none resize-none shadow-md transition duration-300"
+              required> <%=postFind.content%> </textarea>
+            <label for="content" class="absolute top-0 left-3 text-gray-500 text-sm">Post Content</label>
+          </div>
+
+          <!-- Buttons -->
+          <div class="flex justify-between space-x-4">
+            <button type="submit" aria-label="Update Post Button"
+              class="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105">
+              Update Post
+            </button>
+            <a href="/profile"
+              class="w-full bg-gray-500 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg text-center transition duration-300">
+              Cancel
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+</body>
+
+</html>

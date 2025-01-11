@@ -124,6 +124,20 @@ app.get("/logout", (req, res) => {
   res.redirect("/");
 });
 
+app.get("/edit/:id", private, async (req, res) => {
+  const { id } = req.params;
+  const postFind = await postSchema.findById(id);
+  res.render("edit", { postFind })
+})
+
+app.post("/updatePost/:id", private, async (req, res) => {
+  const { id } = req.params;
+  const { content } = req.body;
+  await postSchema.findOneAndUpdate({ _id: id }, { content });
+  // Redirect to profile page
+  res.redirect("/profile");
+})
+
 // Starting the server
 app.listen(3000, () => {
   console.log(`Server is running on http://localhost:3000`);
