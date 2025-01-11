@@ -82,7 +82,6 @@ app.get("/profile", private, async (req, res) => {
 
 
 
-
 app.get("/logout", (req, res) => {
   res.cookie("token", "")
   console.log("Logout is done.")
