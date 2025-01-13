@@ -9,12 +9,13 @@
 </head>
 
 <body class="bg-gradient-to-b from-gray-100 to-gray-300 min-h-screen flex flex-col p-3">
+
   <!-- Navbar -->
-  <nav class="w-full bg-white shadow-lg py-4 px-8 rounded-b-3xl flex justify-between items-center sticky top-0 z-10">
-    <h1 class="text-3xl font-bold text-gray-800">MySocialApp</h1>
+  <nav class="w-full bg-white shadow-md py-4 px-8 rounded-b-3xl flex justify-between items-center sticky top-0 z-10">
+    <h1 class="text-3xl font-extrabold text-gray-800 tracking-wide">MySocialApp</h1>
     <form action="/logout" method="get">
       <button type="submit" aria-label="Logout Button"
-        class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-6 rounded-full transition duration-300">
+        class="bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-6 rounded-full transition-all duration-300 shadow-md hover:shadow-lg">
         Logout
       </button>
     </form>
@@ -22,6 +23,7 @@
 
   <main class="flex-grow flex flex-col items-center justify-center py-12">
     <div class="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-3 gap-10 px-4">
+
       <!-- Profile Section -->
       <div class="col-span-1 bg-white shadow-xl rounded-2xl p-8 text-center space-y-4">
         <h2 class="text-4xl font-bold text-gray-800">
@@ -30,6 +32,16 @@
           </span>!
         </h2>
         <p class="text-gray-600 text-lg">Share your thoughts and connect with others!</p>
+
+        <div class="w-[120px] h-[120px] mt-5 mx-auto overflow-hidden rounded-full shadow-lg border-4 border-blue-500">
+          <img class="w-full h-full object-cover" src="images/uploads/<%= userFind.profilePic %>"
+            alt="<%= userFind.profilePic %>">
+        </div>
+
+        <a href="/profileUpload"
+          class="inline-block mt-4 bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-5 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg">
+          Set Profile
+        </a>
       </div>
 
       <!-- Post Form Section -->
@@ -38,12 +50,11 @@
         <form action="/createPost" method="POST" class="space-y-6">
           <div class="relative">
             <textarea name="content" rows="6" placeholder="What's on your mind?"
-              class="w-full border border-gray-300 rounded-lg p-4 text-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none resize-none shadow-md transition duration-300"
+              class="w-full border border-gray-300 rounded-lg p-4 text-gray-700 focus:ring-4 focus:ring-blue-400 focus:outline-none resize-none shadow-md transition duration-300"
               required></textarea>
-            <label for="content" class="absolute top-0 left-3 text-gray-500 text-sm">Post Content</label>
           </div>
           <button type="submit" aria-label="Submit Post Button"
-            class="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105">
+            class="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105 shadow-md hover:shadow-lg">
             Submit Post
           </button>
         </form>
@@ -54,36 +65,31 @@
     <div class="w-full max-w-6xl mt-12 space-y-8 px-4">
       <% if(userFind.posts.length> 0) { %>
         <% userFind.posts.forEach(post=> { %>
-          <div class="bg-white shadow-xl rounded-2xl p-8">
+          <div class="bg-white shadow-xl rounded-2xl p-6 space-y-4">
             <p class="text-lg text-gray-700 mb-4">
               <%= post.content %>
             </p>
 
-            <div class="flex justify-between items-center items-center  gap-2">
-              <div class="flex justify-between items-center">
-
-
-                <span class="text-gray-600 text-sm mr-4">Likes: <%= post.likes.length %></span>
-                <form action="/like/<%=post._id%>" method="get">
+            <div class="flex justify-between items-center">
+              <div class="flex items-center gap-4">
+                <span class="text-gray-600 text-sm">❤️ Likes: <%= post.likes.length %></span>
+                <form action="/like/<%= post._id %>" method="get">
                   <button type="submit" aria-label="Like Button"
-                    class="flex items-center bg-green-500 hover:bg-green-600 text-white py-2 px-5 rounded-full transition duration-300">
-                    Like
+                    class="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-full transition-all duration-300 shadow-md hover:shadow-lg">
+                    👍 Like
                   </button>
-
                 </form>
-
               </div>
-              <div class="flex justify-center items-center ">
-                <form action="/edit/<%=post._id%>" method="get">
+
+              <div>
+                <form action="/edit/<%= post._id %>" method="get">
                   <button type="submit" aria-label="Edit Button"
-                    class="flex items-center bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-5 rounded-full transition duration-300">
-                    Edit
+                    class="flex items-center gap-2 bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded-full transition-all duration-300 shadow-md hover:shadow-lg">
+                    ✏️ Edit
                   </button>
                 </form>
               </div>
-
             </div>
-
           </div>
           <% }) %>
             <% } else { %>
@@ -93,6 +99,7 @@
               <% } %>
     </div>
   </main>
+
 </body>
 
 </html>
